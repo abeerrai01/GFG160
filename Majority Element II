@@ -1,0 +1,64 @@
+class Solution {
+    // Function to find the majority elements in the array
+    public List<Integer> findMajority(int[] nums) 
+    {
+     int n=nums.length;
+     int can1=-1,can2=-1,cnt1=0,cnt2=0;
+     for(int i=0;i<n;i++)
+     {
+         if(can1==nums[i])
+         {
+             cnt1++;
+         }
+         else if(can2==nums[i])
+         {
+             cnt2++;
+         }
+         else if(cnt1==0)
+         {
+             can1=nums[i];
+             cnt1++;
+         }
+         else if(cnt2==0)
+         {
+             can2=nums[i];
+             cnt2++;
+         }
+         else
+         {
+             cnt1--;
+             cnt2--;
+         }
+     }
+     List<Integer> obj=new ArrayList<Integer>();
+     cnt1=0;
+     cnt2=0;
+     
+     for(int ele : nums)
+     {
+         if(can1==ele)
+         {
+             cnt1++;
+         }
+         if(can2==ele)
+         {
+             cnt2++;
+         }
+     }
+     if(cnt1 > n/3)
+     {
+         obj.add(can1);
+     }
+     if(cnt2 > n/3 && can1!=can2)
+     {
+         obj.add(can2);
+     }
+     if(obj.size()==2 && obj.get(0)>obj.get(1))
+     {
+         int temp=obj.get(0);
+         obj.set(0,obj.get(1));
+         obj.set(1,temp);
+     }
+     return obj;
+}
+}
